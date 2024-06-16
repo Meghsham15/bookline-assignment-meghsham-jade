@@ -7,8 +7,53 @@ const Main = mongoose.model("Main");
 router.get("/class", async function (req, res) {
     let data = await Main.find({});
     res.send({ router: "this is class data rooute", data, response: true });
-})
+});
 
+// Example input - 
+
+//1. create class - 
+// {
+//     className:"Class5"
+//     data:{
+//         "Year": 2020,
+//         "Class_teacher": "Mr. Mj",
+//         "Subject_list": ["Physics", "Maths", "Chemistry", "PT", "Computer", "English"],
+//         "Students": {
+//             "Roll1": {
+//                 "Student_id": "stu_1",
+//                 "Marks": {
+//                     "Physics": 55,
+//                     "Chemistry": 75
+//                 }
+//             },
+//             "Roll3": {
+//                 "Student_id": "stu_1",
+//                 "Marks": {
+//                     "Physics": 55,
+//                     "Chemistry": 75,
+//                     "Maths": 90
+//                 }
+//             },
+//             "Roll2": {
+//                 "Student_id": "stu_2",
+//                 "Marks": {
+//                     "Physics": 75,
+//                     "Maths": 90,
+//                     "PT": 55
+//                 }
+//             }
+//         }
+//     } 
+// }
+
+// 2. To get result of the subject of every student in the class - 
+// {
+//     className:"Class5"
+//     subject:"Physics",
+// }
+
+
+// create/add class - 
 router.post("/class", async function (req, res) {
     let { className, data } = req.body;
     data = JSON.parse(data);
@@ -43,11 +88,6 @@ router.post("/class", async function (req, res) {
         console.error(error);
         res.status(500).send({message:'Internal Server Error',error,response:false});
     }
-
-    // res.status(200).send({
-    //     message: "Class added successfully",
-    //     response: true
-    // });
 
 });
 

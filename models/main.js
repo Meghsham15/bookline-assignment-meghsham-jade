@@ -31,6 +31,21 @@ let marksSchema = new mongoose.Schema({
         min:0,
         max:100
     },
+},{
+    // Custom validation to ensure at least one subject is provided
+    validate: {
+        validator: function(value) {
+            const subjects = ['Physics', 'Maths', 'Chemistry', 'PT', 'Computer', 'English'];
+            let subjectCount = 0;
+            subjects.forEach(subject => {
+                if (value[subject] !== undefined && value[subject] !== null) {
+                    subjectCount++;
+                }
+            });
+            return subjectCount >= 1 && subjectCount <= 6;
+        },
+        message: 'At least one subject must have a score, and no more than six subjects can have scores.'
+    }
 });
 
 mongoose.model("Mark",marksSchema);

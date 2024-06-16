@@ -10,6 +10,7 @@ router.get("/Auth", function (req, res) {
     res.send({ trail: "This is Auth route" });
 });
 
+
 router.post("/Auth/register", async function (req, res) {
     let { userId, password } = req.body;
     if (!userId || !password) {
